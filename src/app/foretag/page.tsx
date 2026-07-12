@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
+import { CategoryIconBadge } from "@/components/icons";
 
 export const dynamic = "force-dynamic";
 
@@ -33,9 +34,9 @@ export default async function CategoriesPage() {
           <Link
             key={c.slug}
             href={`/foretag/${c.slug}`}
-            className="flex items-center gap-3 rounded-xl border border-border bg-white p-4 hover:border-primary hover:shadow-sm"
+            className="flex items-center gap-3 rounded-xl border border-border bg-white p-4 shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[var(--shadow-card-hover)]"
           >
-            <span aria-hidden className="text-2xl">{c.icon}</span>
+            <CategoryIconBadge slug={c.slug} size="sm" />
             <span className="flex-1">
               <span className="block font-semibold">{c.name}</span>
               <span className="block text-xs text-muted">

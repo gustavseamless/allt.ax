@@ -112,7 +112,7 @@ export default async function MunicipalityPage({ params }: PageProps) {
                 href={`/sok?kategori=${c.slug}&kommun=${municipality.slug}`}
                 className="rounded-full border border-border px-3 py-1 text-sm hover:border-primary hover:text-primary"
               >
-                {c.icon} {c.name} ({c.count})
+                {c.name} ({c.count})
               </Link>
             ))}
           </div>

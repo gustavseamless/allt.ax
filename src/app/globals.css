@@ -2,20 +2,21 @@
 
 /*
  * allt.ax design tokens
- * Sea blue as the trustworthy primary, warm sand as background accent and a
- * clearly distinct amber for sponsored labels. Light, high-contrast Nordic UI.
+ * Deep Baltic blue as the trustworthy primary, warm amber reserved for
+ * sponsored labels and offers. Light, high-contrast Nordic UI.
  */
 :root {
   --background: #ffffff;
-  --foreground: #17242b;
-  --primary: #0b5c76;
-  --primary-dark: #084a60;
-  --primary-light: #e3f0f5;
+  --foreground: #142129;
+  --primary: #0a5670;
+  --primary-dark: #063c50;
+  --primary-deep: #052e3e;
+  --primary-light: #e2eff4;
   --accent: #b45309;
-  --accent-light: #fef3c7;
-  --muted: #5b6b73;
-  --surface: #f5f7f8;
-  --border: #dde4e8;
+  --accent-light: #fdf0d8;
+  --muted: #5a6a72;
+  --surface: #f4f7f8;
+  --border: #dfe6ea;
   --success: #157347;
   --success-light: #e4f3ec;
 }
@@ -25,6 +26,7 @@
   --color-foreground: var(--foreground);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
+  --color-primary-deep: var(--primary-deep);
   --color-primary-light: var(--primary-light);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
@@ -33,14 +35,23 @@
   --color-border: var(--border);
   --color-success: var(--success);
   --color-success-light: var(--success-light);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --shadow-card: 0 1px 2px 0 rgb(16 42 55 / 0.05);
+  --shadow-card-hover: 0 8px 24px -8px rgb(16 42 55 / 0.18);
+  --shadow-hero: 0 16px 48px -12px rgb(5 46 62 / 0.35);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background: var(--primary-light);
+  color: var(--primary-dark);
 }
 
 /* Leaflet map container needs an explicit height. */
@@ -49,4 +60,5 @@ body {
   width: 100%;
   border-radius: 0.75rem;
   z-index: 0;
+  border: 1px solid var(--border);
 }

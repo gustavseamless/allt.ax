@@ -9,6 +9,8 @@ import { BusinessCard } from "@/components/business-card";
 import { BusinessMap } from "@/components/business-map";
 import { TrackedLink } from "@/components/tracked-link";
 import { formatDate, formatDateShort, truncate } from "@/lib/utils";
+import { CategoryIconBadge } from "@/components/icons";
+import { Phone, Globe, Mail, CalendarCheck, MapPin, Navigation } from "lucide-react";
 import { businessJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -109,9 +111,10 @@ async function CategoryView({ categoryId }: { categoryId: string }) {
         <Link href="/" className="hover:text-primary">Hem</Link> /{" "}
         <Link href="/foretag" className="hover:text-primary">Företag</Link> / {category.name}
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">
-        {category.icon} {category.name} på Åland
-      </h1>
+      <div className="mt-3 flex items-center gap-3">
+        <CategoryIconBadge slug={category.slug} />
+        <h1 className="text-2xl font-bold tracking-tight">{category.name} på Åland</h1>
+      </div>
       {category.description && <p className="mt-2 max-w-2xl text-muted">{category.description}</p>}
 
       {municipalitiesWithBusinesses.length > 1 && (
@@ -225,12 +228,7 @@ async function BusinessView({ slug }: { slug: string }) {
         <div className="min-w-0 flex-1">
           {/* Head */}
           <div className="flex items-start gap-4">
-            <div
-              aria-hidden
-              className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-primary-light text-3xl"
-            >
-              {business.primaryCategory?.icon || business.name.charAt(0)}
-            </div>
+            <CategoryIconBadge slug={business.primaryCategory?.slug} size="lg" />
             <div>
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="text-2xl font-bold">{business.name}</h1>
@@ -245,8 +243,12 @@ async function BusinessView({ slug }: { slug: string }) {
                   </Link>
                 )}
                 {business.municipality && (
-                  <Link href={`/${business.municipality.slug}`} className="hover:underline">
-                    📍 {business.address ? `${business.address}, ` : ""}
+                  <Link
+                    href={`/${business.municipality.slug}`}
+                    className="inline-flex items-center gap-1 hover:underline"
+                  >
+                    <MapPin className="h-3.5 w-3.5" aria-hidden />
+                    {business.address ? `${business.address}, ` : ""}
                     {business.municipality.name}
                   </Link>
                 )}
@@ -262,9 +264,9 @@ async function BusinessView({ slug }: { slug: string }) {
                 href={`tel:${business.phone.replace(/\s/g, "")}`}
                 businessId={business.id}
                 action="phone"
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white hover:bg-primary-dark"
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-dark"
               >
-                📞 {business.phone}
+                <Phone className="h-4 w-4" aria-hidden /> {business.phone}
               </TrackedLink>
             )}
             {business.website && (
@@ -274,9 +276,9 @@ async function BusinessView({ slug }: { slug: string }) {
                 action="website"
                 target="_blank"
                 rel="noopener nofollow"
-                className="rounded-lg border border-primary px-4 py-2 text-sm font-semibold text-primary hover:bg-primary-light"
+                className="inline-flex items-center gap-2 rounded-lg border border-primary px-4 py-2 text-sm font-semibold text-primary transition-colors hover:bg-primary-light"
               >
-                🌐 Webbplats
+                <Globe className="h-4 w-4" aria-hidden /> Webbplats
               </TrackedLink>
             )}
             {business.email && (
@@ -284,9 +286,9 @@ async function BusinessView({ slug }: { slug: string }) {
                 href={`mailto:${business.email}`}
                 businessId={business.id}
                 action="email"
-                className="rounded-lg border border-border px-4 py-2 text-sm font-semibold hover:bg-surface"
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-semibold transition-colors hover:bg-surface"
               >
-                ✉️ E-post
+                <Mail className="h-4 w-4" aria-hidden /> E-post
               </TrackedLink>
             )}
             {business.bookingUrl && (
@@ -296,9 +298,9 @@ async function BusinessView({ slug }: { slug: string }) {
                 action="booking"
                 target="_blank"
                 rel="noopener nofollow"
-                className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-white shadow-sm transition-opacity hover:opacity-90"
               >
-                📅 Boka
+                <CalendarCheck className="h-4 w-4" aria-hidden /> Boka
               </TrackedLink>
             )}
           </div>
@@ -426,9 +428,9 @@ async function BusinessView({ slug }: { slug: string }) {
                 href={`https://www.openstreetmap.org/directions?to=${business.latitude}%2C${business.longitude}`}
                 target="_blank"
                 rel="noopener"
-                className="mt-2 inline-block text-sm text-primary hover:underline"
+                className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
               >
-                Vägbeskrivning →
+                <Navigation className="h-3.5 w-3.5" aria-hidden /> Vägbeskrivning
               </a>
             </div>
           )}

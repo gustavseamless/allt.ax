@@ -1,7 +1,14 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
@@ -27,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="sv">
-      <body className="antialiased flex min-h-screen flex-col">
+      <body className={`${inter.variable} flex min-h-screen flex-col antialiased`}>
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
