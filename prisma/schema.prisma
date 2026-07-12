@@ -1,0 +1,315 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  BUSINESS_OWNER
+  MODERATOR
+  ADMIN
+}
+
+enum ClaimStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum CampaignStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ENDED
+}
+
+enum CampaignType {
+  SEARCH_SPONSORED
+  CATEGORY_SPONSORED
+  HOMEPAGE_SPONSORED
+  BANNER
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  businesses     Business[]      @relation("ClaimedBusinesses")
+  claims         BusinessClaim[] @relation("ClaimUser")
+  reviewedClaims BusinessClaim[] @relation("ClaimReviewer")
+  auditLogs      AuditLog[]
+}
+
+model Municipality {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String  @unique
+  description String  @default("")
+  latitude    Float?
+  longitude   Float?
+
+  businesses Business[]
+  searchLogs SearchLog[]
+}
+
+model Category {
+  id          String  @id @default(cuid())
+  name        String
+  slug        String  @unique
+  parentId    String?
+  description String  @default("")
+  icon        String  @default("")
+  active      Boolean @default(true)
+
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+
+  businessCategories BusinessCategory[]
+  primaryBusinesses  Business[]         @relation("PrimaryCategory")
+}
+
+model Business {
+  id                String   @id @default(cuid())
+  name              String
+  slug              String   @unique
+  legalName         String?
+  businessId        String? // FO-nummer / registration number
+  description       String   @default("")
+  shortDescription  String   @default("")
+  primaryCategoryId String?
+  address           String   @default("")
+  postalCode        String   @default("")
+  city              String   @default("")
+  municipalityId    String?
+  latitude          Float?
+  longitude         Float?
+  phone             String   @default("")
+  email             String   @default("")
+  website           String   @default("")
+  socialLinks       Json     @default("{}")
+  openingHours      Json     @default("{}") // { mon: [["09:00","17:00"]], ... }
+  attributes        Json     @default("{}") // category-specific attributes
+  tags              String[] @default([])
+  logoUrl           String   @default("")
+  coverImageUrl     String   @default("")
+  bookingUrl        String   @default("")
+  priceListUrl      String   @default("")
+  verified          Boolean  @default(false)
+  premium           Boolean  @default(false)
+  active            Boolean  @default(true)
+  demo              Boolean  @default(false) // marks fictional demonstration data
+  claimedByUserId   String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  primaryCategory Category?          @relation("PrimaryCategory", fields: [primaryCategoryId], references: [id])
+  municipality    Municipality?      @relation(fields: [municipalityId], references: [id])
+  claimedBy       User?              @relation("ClaimedBusinesses", fields: [claimedByUserId], references: [id])
+  categories      BusinessCategory[]
+  services        Service[]
+  images          BusinessImage[]
+  offers          Offer[]
+  events          Event[]
+  campaigns       Campaign[]
+  claims          BusinessClaim[]
+  profileViews    ProfileView[]
+  adClicks        AdClick[]
+
+  @@index([municipalityId])
+  @@index([primaryCategoryId])
+  @@index([active])
+}
+
+model BusinessCategory {
+  businessId String
+  categoryId String
+  primary    Boolean @default(false)
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  category Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@id([businessId, categoryId])
+  @@index([categoryId])
+}
+
+model Service {
+  id          String @id @default(cuid())
+  businessId  String
+  name        String
+  description String @default("")
+  priceText   String @default("")
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId])
+}
+
+model BusinessImage {
+  id         String @id @default(cuid())
+  businessId String
+  imageUrl   String
+  altText    String @default("")
+  sortOrder  Int    @default(0)
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId])
+}
+
+model Offer {
+  id          String   @id @default(cuid())
+  businessId  String
+  title       String
+  description String   @default("")
+  startDate   DateTime
+  endDate     DateTime
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId])
+  @@index([active, startDate, endDate])
+}
+
+model Event {
+  id          String   @id @default(cuid())
+  businessId  String?
+  title       String
+  slug        String   @unique
+  description String   @default("")
+  location    String   @default("")
+  startDate   DateTime
+  endDate     DateTime
+  imageUrl    String   @default("")
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now())
+
+  business Business? @relation(fields: [businessId], references: [id], onDelete: SetNull)
+
+  @@index([active, startDate])
+}
+
+model Campaign {
+  id                    String         @id @default(cuid())
+  businessId            String
+  name                  String
+  campaignType          CampaignType   @default(SEARCH_SPONSORED)
+  startDate             DateTime
+  endDate               DateTime
+  status                CampaignStatus @default(DRAFT)
+  targetKeywords        String[]       @default([])
+  targetCategoryIds     String[]       @default([])
+  targetMunicipalityIds String[]       @default([])
+  priority              Int            @default(0)
+  budget                Decimal        @default(0) @db.Decimal(10, 2)
+  price                 Decimal        @default(0) @db.Decimal(10, 2)
+  impressionCount       Int            @default(0)
+  clickCount            Int            @default(0)
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  business    Business       @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  impressions AdImpression[]
+  clicks      AdClick[]
+
+  @@index([status, startDate, endDate])
+  @@index([businessId])
+}
+
+model AdImpression {
+  id          String   @id @default(cuid())
+  campaignId  String
+  searchQuery String   @default("")
+  page        String   @default("")
+  sessionId   String   @default("")
+  createdAt   DateTime @default(now())
+
+  campaign Campaign @relation(fields: [campaignId], references: [id], onDelete: Cascade)
+
+  @@index([campaignId, createdAt])
+}
+
+model AdClick {
+  id         String   @id @default(cuid())
+  campaignId String?
+  businessId String
+  action     String // phone | website | email | profile | booking
+  sessionId  String   @default("")
+  createdAt  DateTime @default(now())
+
+  campaign Campaign? @relation(fields: [campaignId], references: [id], onDelete: SetNull)
+  business Business  @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, createdAt])
+  @@index([campaignId])
+}
+
+model SearchLog {
+  id             String   @id @default(cuid())
+  query          String
+  municipalityId String?
+  resultCount    Int      @default(0)
+  sessionId      String   @default("")
+  createdAt      DateTime @default(now())
+
+  municipality Municipality? @relation(fields: [municipalityId], references: [id])
+
+  @@index([createdAt])
+  @@index([query])
+}
+
+model BusinessClaim {
+  id         String      @id @default(cuid())
+  businessId String
+  userId     String
+  status     ClaimStatus @default(PENDING)
+  evidence   String      @default("")
+  reviewedBy String?
+  reviewedAt DateTime?
+  createdAt  DateTime    @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+  user     User     @relation("ClaimUser", fields: [userId], references: [id], onDelete: Cascade)
+  reviewer User?    @relation("ClaimReviewer", fields: [reviewedBy], references: [id])
+
+  @@index([status])
+  @@index([businessId])
+}
+
+model ProfileView {
+  id         String   @id @default(cuid())
+  businessId String
+  sessionId  String   @default("")
+  source     String   @default("") // search | category | municipality | direct
+  createdAt  DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@index([businessId, createdAt])
+}
+
+model AuditLog {
+  id            String   @id @default(cuid())
+  userId        String?
+  entityType    String
+  entityId      String
+  action        String
+  previousValue Json?
+  newValue      Json?
+  createdAt     DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
