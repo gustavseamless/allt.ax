@@ -113,7 +113,7 @@ async function CategoryView({ categoryId }: { categoryId: string }) {
       </nav>
       <div className="mt-3 flex items-center gap-3">
         <CategoryIconBadge slug={category.slug} />
-        <h1 className="text-2xl font-bold tracking-tight">{category.name} på Åland</h1>
+        <h1 className="font-display text-3xl font-semibold text-ink">{category.name} på Åland</h1>
       </div>
       {category.description && <p className="mt-2 max-w-2xl text-muted">{category.description}</p>}
 
@@ -231,7 +231,7 @@ async function BusinessView({ slug }: { slug: string }) {
             <CategoryIconBadge slug={business.primaryCategory?.slug} size="lg" />
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-bold">{business.name}</h1>
+                <h1 className="font-display text-3xl font-semibold text-ink">{business.name}</h1>
                 {business.verified && <VerifiedBadge />}
                 {business.premium && <PremiumBadge />}
                 {business.demo && <DemoBadge />}
@@ -307,7 +307,7 @@ async function BusinessView({ slug }: { slug: string }) {
 
           {/* Description */}
           <section className="mt-6">
-            <h2 className="text-lg font-bold">Om {business.name}</h2>
+            <h2 className="font-display text-xl font-semibold text-ink">Om {business.name}</h2>
             <p className="mt-2 whitespace-pre-line text-[15px] leading-relaxed">
               {business.description || business.shortDescription}
             </p>
@@ -329,7 +329,7 @@ async function BusinessView({ slug }: { slug: string }) {
           {/* Services */}
           {business.services.length > 0 && (
             <section className="mt-6">
-              <h2 className="text-lg font-bold">Tjänster och priser</h2>
+              <h2 className="font-display text-xl font-semibold text-ink">Tjänster och priser</h2>
               <ul className="mt-2 divide-y divide-border rounded-xl border border-border bg-white">
                 {business.services.map((s) => (
                   <li key={s.id} className="flex items-center justify-between gap-4 px-4 py-3 text-sm">
@@ -347,7 +347,7 @@ async function BusinessView({ slug }: { slug: string }) {
           {/* Offers */}
           {business.offers.length > 0 && (
             <section className="mt-6">
-              <h2 className="text-lg font-bold">Aktuella erbjudanden</h2>
+              <h2 className="font-display text-xl font-semibold text-ink">Aktuella erbjudanden</h2>
               <div className="mt-2 space-y-2">
                 {business.offers.map((o) => (
                   <div key={o.id} className="rounded-xl border border-accent/40 bg-accent-light/30 p-4">
@@ -365,13 +365,13 @@ async function BusinessView({ slug }: { slug: string }) {
           {/* Events */}
           {business.events.length > 0 && (
             <section className="mt-6">
-              <h2 className="text-lg font-bold">Kommande evenemang</h2>
+              <h2 className="font-display text-xl font-semibold text-ink">Kommande evenemang</h2>
               <div className="mt-2 space-y-2">
                 {business.events.map((e) => (
                   <Link
                     key={e.id}
                     href={`/evenemang/${e.slug}`}
-                    className="block rounded-xl border border-border bg-white p-4 hover:border-primary"
+                    className="block rounded-2xl bg-card p-5 shadow-[var(--shadow-card)] ring-1 ring-hairline transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]"
                   >
                     <div className="text-sm font-semibold text-primary">{formatDate(e.startDate)}</div>
                     <div className="font-semibold">{e.title}</div>
@@ -399,7 +399,7 @@ async function BusinessView({ slug }: { slug: string }) {
           {/* Related */}
           {related.length > 0 && (
             <section className="mt-10">
-              <h2 className="text-lg font-bold">Liknande företag</h2>
+              <h2 className="font-display text-xl font-semibold text-ink">Liknande företag</h2>
               <div className="mt-3 space-y-3">
                 {related.map((b) => (
                   <BusinessCard key={b.id} business={b} />

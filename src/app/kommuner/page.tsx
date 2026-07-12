@@ -22,7 +22,7 @@ export default async function MunicipalitiesPage() {
       <nav aria-label="Brödsmulor" className="text-sm text-muted">
         <Link href="/" className="hover:text-primary">Hem</Link> / Kommuner
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">Ålands kommuner</h1>
+      <h1 className="font-display mt-2 text-3xl font-semibold text-ink">Ålands kommuner</h1>
       <p className="mt-2 max-w-2xl text-muted">
         Hitta företag och service där du bor eller dit du ska – i staden, på
         landsbygden och i skärgården.
@@ -32,7 +32,7 @@ export default async function MunicipalitiesPage() {
           <Link
             key={m.slug}
             href={`/${m.slug}`}
-            className="rounded-xl border border-border bg-white p-4 hover:border-primary hover:shadow-sm"
+            className="rounded-2xl bg-card p-5 shadow-[var(--shadow-card)] ring-1 ring-hairline transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]"
           >
             <div className="font-semibold">{m.name}</div>
             <div className="mt-1 text-xs text-muted">{m._count.businesses} företag</div>

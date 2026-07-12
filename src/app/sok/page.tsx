@@ -59,7 +59,7 @@ export default async function SearchPage({ searchParams }: SearchPageProps) {
 
       <div className="mt-6 flex flex-col gap-8 lg:flex-row">
         <div className="min-w-0 flex-1">
-          <h1 className="text-lg font-bold">
+          <h1 className="font-display text-2xl font-semibold text-ink">
             {query ? (
               <>
                 {results.totalOrganic} träffar för ”{query}”

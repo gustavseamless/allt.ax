@@ -45,7 +45,7 @@ export default async function EventPage({ params }: PageProps) {
         <Link href="/" className="hover:text-primary">Hem</Link> /{" "}
         <Link href="/evenemang" className="hover:text-primary">Evenemang</Link> / {event.title}
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">{event.title}</h1>
+      <h1 className="font-display mt-2 text-3xl font-semibold text-ink">{event.title}</h1>
       <div className="mt-2 text-sm font-semibold text-primary">
         {formatDate(event.startDate)}
         {event.endDate.getTime() !== event.startDate.getTime() && ` – ${formatDate(event.endDate)}`}

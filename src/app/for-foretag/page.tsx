@@ -48,7 +48,7 @@ const TIERS = [
 export default function ForBusinessPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
-      <h1 className="text-3xl font-bold">Syns där ålänningarna söker</h1>
+      <h1 className="font-display text-4xl font-semibold text-ink">Syns där ålänningarna söker</h1>
       <p className="mt-3 max-w-2xl text-muted">
         allt.ax är Ålands lokala sökmotor. När någon söker efter det du erbjuder
         ska de hitta dig – med rätt uppgifter, öppettider och erbjudanden.
@@ -57,7 +57,7 @@ export default function ForBusinessPage() {
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {TIERS.map((tier) => (
           <div key={tier.name} className="rounded-2xl border border-border bg-white p-6">
-            <h2 className="text-lg font-bold">{tier.name}</h2>
+            <h2 className="font-display text-xl font-semibold text-ink">{tier.name}</h2>
             <div className="mt-1 text-2xl font-bold text-primary">{tier.price}</div>
             <ul className="mt-4 space-y-2 text-sm">
               {tier.features.map((f) => (

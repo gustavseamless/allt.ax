@@ -28,20 +28,12 @@ export function SearchBox({
 }: SearchBoxProps) {
   return (
     <form action="/sok" method="get" className="w-full" role="search">
-      <div
-        className={
-          large
-            ? "rounded-2xl bg-white p-2 shadow-[var(--shadow-hero)]"
-            : ""
-        }
-      >
+      <div className={large ? "rounded-[1.75rem] bg-white p-2 shadow-[var(--shadow-hero)] sm:rounded-full" : ""}>
         <div className={`flex w-full flex-col gap-2 sm:flex-row ${large ? "sm:items-stretch" : ""}`}>
           <div className="relative flex-1">
             <Search
               aria-hidden
-              className={`pointer-events-none absolute left-3.5 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-muted ${
-                large ? "" : ""
-              }`}
+              className="pointer-events-none absolute left-4 top-1/2 h-4.5 w-4.5 -translate-y-1/2 text-muted"
             />
             <input
               type="search"
@@ -51,10 +43,10 @@ export function SearchBox({
               aria-label="Sök på Åland"
               autoComplete="off"
               maxLength={120}
-              className={`w-full rounded-xl bg-white pl-10 pr-4 text-foreground placeholder:text-muted focus:outline-none ${
+              className={`w-full bg-white pl-11 pr-4 text-ink placeholder:text-muted focus:outline-none ${
                 large
-                  ? "border-0 py-3.5 text-lg focus:ring-2 focus:ring-primary-light"
-                  : "border border-border py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary-light"
+                  ? "rounded-full border-0 py-3.5 text-lg"
+                  : "rounded-full border border-border py-2.5 text-sm focus:border-primary focus:ring-2 focus:ring-primary-light"
               }`}
             />
           </div>
@@ -62,10 +54,10 @@ export function SearchBox({
             name="kommun"
             defaultValue={defaultMunicipality}
             aria-label="Välj kommun"
-            className={`rounded-xl bg-white px-3 text-foreground focus:outline-none ${
+            className={`bg-white px-4 text-ink focus:outline-none ${
               large
-                ? "border-0 py-3.5 sm:border-l sm:border-border sm:rounded-none"
-                : "border border-border py-2.5 text-sm focus:border-primary"
+                ? "rounded-full border-0 py-3.5 sm:rounded-none sm:border-l sm:border-hairline"
+                : "rounded-full border border-border py-2.5 text-sm focus:border-primary"
             }`}
           >
             <option value="">Hela Åland</option>
@@ -77,8 +69,8 @@ export function SearchBox({
           </select>
           <button
             type="submit"
-            className={`rounded-xl bg-primary font-semibold text-white transition-colors hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary ${
-              large ? "px-8 py-3.5 text-lg" : "px-6 py-2.5 text-sm"
+            className={`rounded-full bg-primary font-semibold text-white transition-colors hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary ${
+              large ? "px-9 py-3.5 text-lg" : "px-7 py-2.5 text-sm"
             }`}
           >
             Sök
@@ -86,8 +78,8 @@ export function SearchBox({
         </div>
       </div>
       <label
-        className={`mt-3 inline-flex cursor-pointer items-center gap-2 text-sm ${
-          onDark ? "text-white/80" : "text-muted"
+        className={`mt-4 inline-flex cursor-pointer items-center gap-2 text-sm ${
+          onDark ? "text-white/70" : "text-muted"
         }`}
       >
         <input

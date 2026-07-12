@@ -23,7 +23,7 @@ export default async function EventsPage() {
       <nav aria-label="Brödsmulor" className="text-sm text-muted">
         <Link href="/" className="hover:text-primary">Hem</Link> / Evenemang
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">Vad händer på Åland?</h1>
+      <h1 className="font-display mt-2 text-3xl font-semibold text-ink">Vad händer på Åland?</h1>
       <p className="mt-2 max-w-2xl text-muted">Kommande evenemang från lokala arrangörer.</p>
       {events.length > 0 ? (
         <div className="mt-6 space-y-3">
@@ -31,7 +31,7 @@ export default async function EventsPage() {
             <Link
               key={e.id}
               href={`/evenemang/${e.slug}`}
-              className="flex flex-col gap-1 rounded-xl border border-border bg-white p-5 hover:border-primary hover:shadow-sm sm:flex-row sm:items-center sm:gap-6"
+              className="flex flex-col gap-1 rounded-2xl bg-card p-6 shadow-[var(--shadow-card)] ring-1 ring-hairline transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] sm:flex-row sm:items-center sm:gap-6"
             >
               <div className="w-40 shrink-0 text-sm font-semibold text-primary">
                 {formatDate(e.startDate)}

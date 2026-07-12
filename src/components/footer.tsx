@@ -1,44 +1,44 @@
 import Link from "next/link";
-import { Waves } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="mt-16 bg-primary-deep text-white">
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 text-sm sm:grid-cols-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/10">
-              <Waves className="h-4.5 w-4.5" strokeWidth={2} aria-hidden />
-            </span>
-            <span className="text-xl font-extrabold tracking-tight">
-              allt<span className="text-amber-400">.ax</span>
-            </span>
+    <footer className="mt-24 bg-primary-deep text-white">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+        <div className="grid gap-12 sm:grid-cols-3">
+          <div>
+            <div className="font-display text-3xl font-bold">
+              allt<span className="text-amber-500/90">.</span>ax
+            </div>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">
+              Ålands lokala sökmotor – hitta företag, tjänster, erbjudanden och
+              evenemang i alla åländska kommuner.
+            </p>
           </div>
-          <p className="mt-3 max-w-xs leading-relaxed text-white/70">
-            Ålands lokala sökmotor – hitta företag, tjänster, erbjudanden och
-            evenemang i alla åländska kommuner.
-          </p>
+          <div>
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/40">
+              Utforska
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-white/75">
+              <li><Link href="/foretag" className="transition-colors hover:text-white">Alla kategorier</Link></li>
+              <li><Link href="/kommuner" className="transition-colors hover:text-white">Kommuner</Link></li>
+              <li><Link href="/erbjudanden" className="transition-colors hover:text-white">Erbjudanden</Link></li>
+              <li><Link href="/evenemang" className="transition-colors hover:text-white">Evenemang</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="text-[11px] font-bold uppercase tracking-[0.16em] text-white/40">
+              Om allt.ax
+            </h3>
+            <ul className="mt-4 space-y-2.5 text-sm text-white/75">
+              <li><Link href="/for-foretag" className="transition-colors hover:text-white">För företag</Link></li>
+              <li><Link href="/om" className="transition-colors hover:text-white">Om tjänsten</Link></li>
+              <li><Link href="/integritet" className="transition-colors hover:text-white">Integritet & cookies</Link></li>
+            </ul>
+          </div>
         </div>
-        <div>
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50">Utforska</h3>
-          <ul className="mt-3 space-y-2 text-white/80">
-            <li><Link href="/foretag" className="hover:text-white">Alla kategorier</Link></li>
-            <li><Link href="/kommuner" className="hover:text-white">Kommuner</Link></li>
-            <li><Link href="/erbjudanden" className="hover:text-white">Erbjudanden</Link></li>
-            <li><Link href="/evenemang" className="hover:text-white">Evenemang</Link></li>
-          </ul>
+        <div className="mt-14 border-t border-white/10 pt-6 text-xs text-white/40">
+          © {new Date().getFullYear()} allt.ax · Demoversion med fiktiv exempeldata
         </div>
-        <div>
-          <h3 className="text-xs font-semibold uppercase tracking-wider text-white/50">Om allt.ax</h3>
-          <ul className="mt-3 space-y-2 text-white/80">
-            <li><Link href="/for-foretag" className="hover:text-white">För företag</Link></li>
-            <li><Link href="/om" className="hover:text-white">Om tjänsten</Link></li>
-            <li><Link href="/integritet" className="hover:text-white">Integritet & cookies</Link></li>
-          </ul>
-        </div>
-      </div>
-      <div className="border-t border-white/10 px-4 py-4 text-center text-xs text-white/50">
-        © {new Date().getFullYear()} allt.ax · Demoversion med fiktiv exempeldata
       </div>
     </footer>
   );

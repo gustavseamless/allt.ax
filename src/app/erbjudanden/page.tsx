@@ -24,7 +24,7 @@ export default async function OffersPage() {
       <nav aria-label="Brödsmulor" className="text-sm text-muted">
         <Link href="/" className="hover:text-primary">Hem</Link> / Erbjudanden
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">Aktuella erbjudanden på Åland</h1>
+      <h1 className="font-display mt-2 text-3xl font-semibold text-ink">Aktuella erbjudanden på Åland</h1>
       <p className="mt-2 max-w-2xl text-muted">
         Rabatter och kampanjer från lokala företag just nu.
       </p>
@@ -34,7 +34,7 @@ export default async function OffersPage() {
             <Link
               key={o.id}
               href={`/foretag/${o.business.slug}`}
-              className="rounded-xl border border-border bg-white p-5 hover:border-primary hover:shadow-sm"
+              className="rounded-2xl bg-card p-6 shadow-[var(--shadow-card)] ring-1 ring-hairline transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]"
             >
               <div className="text-sm font-semibold text-accent">Erbjudande</div>
               <h2 className="mt-1 font-semibold">{o.title}</h2>

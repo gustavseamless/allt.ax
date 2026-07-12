@@ -19,16 +19,16 @@ export function BusinessCard({ business, sponsored = false }: BusinessCardProps)
 
   return (
     <article
-      className={`group rounded-xl border bg-white p-4 shadow-[var(--shadow-card)] transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] ${
-        sponsored ? "border-accent/30" : "border-border"
+      className={`group rounded-2xl bg-card p-5 shadow-[var(--shadow-card)] ring-1 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)] ${
+        sponsored ? "ring-accent/25" : "ring-hairline hover:ring-border"
       }`}
     >
-      <div className="flex items-start gap-3.5">
+      <div className="flex items-start gap-4">
         <CategoryIconBadge slug={business.primaryCategory?.slug} />
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-center gap-2">
             {sponsored && <SponsoredBadge />}
-            <h3 className="text-[15px] font-semibold leading-snug">
+            <h3 className="font-display text-[17px] font-semibold leading-snug text-ink">
               <Link
                 href={`/foretag/${business.slug}`}
                 className="transition-colors group-hover:text-primary"
@@ -38,14 +38,14 @@ export function BusinessCard({ business, sponsored = false }: BusinessCardProps)
             </h3>
             {business.verified && <VerifiedBadge />}
           </div>
-          <p className="mt-1 text-sm leading-relaxed text-muted">
+          <p className="mt-1.5 text-sm leading-relaxed text-muted">
             {truncate(business.shortDescription || business.description, 140)}
           </p>
-          <div className="mt-2.5 flex flex-wrap items-center gap-x-3.5 gap-y-1.5 text-xs text-muted">
+          <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-muted">
             {business.primaryCategory && (
               <Link
                 href={`/foretag/${business.primaryCategory.slug}`}
-                className="font-semibold text-primary hover:underline"
+                className="font-semibold uppercase tracking-[0.08em] text-primary hover:underline"
               >
                 {business.primaryCategory.name}
               </Link>

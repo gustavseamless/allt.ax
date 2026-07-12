@@ -24,7 +24,7 @@ export default async function CategoriesPage() {
       <nav aria-label="Brödsmulor" className="text-sm text-muted">
         <Link href="/" className="hover:text-primary">Hem</Link> / Företag
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">Företag på Åland – alla kategorier</h1>
+      <h1 className="font-display mt-2 text-3xl font-semibold text-ink">Företag på Åland – alla kategorier</h1>
       <p className="mt-2 max-w-2xl text-muted">
         Hitta rätt företag i rätt kategori. Alla åländska företag kan ha en
         gratis grundprofil på allt.ax.

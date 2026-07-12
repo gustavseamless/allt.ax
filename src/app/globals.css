@@ -1,22 +1,26 @@
 @import "tailwindcss";
 
 /*
- * allt.ax design tokens
- * Deep Baltic blue as the trustworthy primary, warm amber reserved for
- * sponsored labels and offers. Light, high-contrast Nordic UI.
+ * allt.ax design tokens — "Nordic editorial, coastal"
+ * Warm paper background, deep midnight-sea primary, brass detailing and a
+ * display serif (Fraunces) for headlines. High contrast, generous air.
  */
 :root {
-  --background: #ffffff;
-  --foreground: #142129;
-  --primary: #0a5670;
-  --primary-dark: #063c50;
-  --primary-deep: #052e3e;
-  --primary-light: #e2eff4;
-  --accent: #b45309;
-  --accent-light: #fdf0d8;
-  --muted: #5a6a72;
-  --surface: #f4f7f8;
-  --border: #dfe6ea;
+  --background: #faf9f7;
+  --foreground: #14212a;
+  --ink: #0c1a22;
+  --primary: #0d4a63;
+  --primary-dark: #0a3648;
+  --primary-deep: #081f2b;
+  --primary-light: #e6eef2;
+  --accent: #a16207;
+  --accent-light: #f8ecd7;
+  --brass: #8a6b2f;
+  --muted: #64707a;
+  --surface: #f2f0ec;
+  --card: #ffffff;
+  --border: #e6e2da;
+  --hairline: #ece8e1;
   --success: #157347;
   --success-light: #e4f3ec;
 }
@@ -24,22 +28,27 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
   --color-primary: var(--primary);
   --color-primary-dark: var(--primary-dark);
   --color-primary-deep: var(--primary-deep);
   --color-primary-light: var(--primary-light);
   --color-accent: var(--accent);
   --color-accent-light: var(--accent-light);
+  --color-brass: var(--brass);
   --color-muted: var(--muted);
   --color-surface: var(--surface);
+  --color-card: var(--card);
   --color-border: var(--border);
+  --color-hairline: var(--hairline);
   --color-success: var(--success);
   --color-success-light: var(--success-light);
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --shadow-card: 0 1px 2px 0 rgb(16 42 55 / 0.05);
-  --shadow-card-hover: 0 8px 24px -8px rgb(16 42 55 / 0.18);
-  --shadow-hero: 0 16px 48px -12px rgb(5 46 62 / 0.35);
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --shadow-card: 0 1px 2px rgb(20 33 42 / 0.04), 0 1px 1px rgb(20 33 42 / 0.03);
+  --shadow-card-hover: 0 12px 32px -12px rgb(20 33 42 / 0.18);
+  --shadow-hero: 0 24px 64px -16px rgb(4 18 26 / 0.5);
 }
 
 body {
@@ -47,6 +56,23 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Editorial display headings */
+.font-display {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72, "SOFT" 0, "WONK" 0;
+  letter-spacing: -0.015em;
+}
+
+/* Small-caps eyebrow labels above section headings */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--brass);
 }
 
 ::selection {
@@ -58,7 +84,7 @@ body {
 .ax-map {
   height: 280px;
   width: 100%;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   z-index: 0;
   border: 1px solid var(--border);
 }

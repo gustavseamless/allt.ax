@@ -97,14 +97,14 @@ export default async function MunicipalityPage({ params }: PageProps) {
         <Link href="/" className="hover:text-primary">Hem</Link> /{" "}
         <Link href="/kommuner" className="hover:text-primary">Kommuner</Link> / {municipality.name}
       </nav>
-      <h1 className="mt-2 text-2xl font-bold">{municipality.name}</h1>
+      <h1 className="font-display mt-2 text-3xl font-semibold text-ink">{municipality.name}</h1>
       {municipality.description && (
         <p className="mt-2 max-w-2xl text-muted">{municipality.description}</p>
       )}
 
       {topCategories.length > 0 && (
         <section className="mt-6">
-          <h2 className="text-lg font-bold">Populära kategorier i {municipality.name}</h2>
+          <h2 className="font-display text-xl font-semibold text-ink">Populära kategorier i {municipality.name}</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {topCategories.map((c) => (
               <Link
@@ -121,13 +121,13 @@ export default async function MunicipalityPage({ params }: PageProps) {
 
       {offers.length > 0 && (
         <section className="mt-8">
-          <h2 className="text-lg font-bold">Erbjudanden i {municipality.name}</h2>
+          <h2 className="font-display text-xl font-semibold text-ink">Erbjudanden i {municipality.name}</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {offers.map((o) => (
               <Link
                 key={o.id}
                 href={`/foretag/${o.business.slug}`}
-                className="rounded-xl border border-border bg-white p-4 hover:border-primary"
+                className="rounded-2xl bg-card p-5 shadow-[var(--shadow-card)] ring-1 ring-hairline transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]"
               >
                 <div className="text-sm font-semibold text-accent">Erbjudande</div>
                 <div className="mt-1 font-semibold">{o.title}</div>
@@ -140,13 +140,13 @@ export default async function MunicipalityPage({ params }: PageProps) {
 
       {events.length > 0 && (
         <section className="mt-8">
-          <h2 className="text-lg font-bold">Evenemang i {municipality.name}</h2>
+          <h2 className="font-display text-xl font-semibold text-ink">Evenemang i {municipality.name}</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {events.map((e) => (
               <Link
                 key={e.id}
                 href={`/evenemang/${e.slug}`}
-                className="rounded-xl border border-border bg-white p-4 hover:border-primary"
+                className="rounded-2xl bg-card p-5 shadow-[var(--shadow-card)] ring-1 ring-hairline transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-card-hover)]"
               >
                 <div className="text-sm font-semibold text-primary">{formatDateShort(e.startDate)}</div>
                 <div className="mt-1 font-semibold">{e.title}</div>
@@ -158,7 +158,7 @@ export default async function MunicipalityPage({ params }: PageProps) {
 
       <div className="mt-8 flex flex-col gap-8 lg:flex-row">
         <section className="min-w-0 flex-1">
-          <h2 className="text-lg font-bold">
+          <h2 className="font-display text-xl font-semibold text-ink">
             Företag i {municipality.name} ({businesses.length})
           </h2>
           {businesses.length > 0 ? (

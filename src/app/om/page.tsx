@@ -14,7 +14,7 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: organizationJsonLd() }}
       />
-      <h1 className="text-2xl font-bold">Om allt.ax</h1>
+      <h1 className="font-display text-3xl font-semibold text-ink">Om allt.ax</h1>
       <div className="mt-4 space-y-4 leading-relaxed">
         <p>
           allt.ax är Ålands lokala sökmotor och startsida för att hitta företag,
